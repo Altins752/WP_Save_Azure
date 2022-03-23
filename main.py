@@ -1,24 +1,11 @@
-import time
 import os
+from dumpBDD import DumpMysql
+from TarFile import creatArchive
 
-def CreateFileName():
-    fileTime = time.localtime(time.time())
+os.system("mkdir bckp_wp")
+os.system("cp -rf /var/www/html/ ./bckp_wp")
+os.system("mv ./bckp_wp/html ./bckp_wp/siteWP")
 
-    year = fileTime.tm_year
-    month = fileTime.tm_mon
-    day = fileTime.tm_mday
-    hour = fileTime.tm_hour
-    minute = fileTime.tm_min
-    second = fileTime.tm_sec
-
-    filename = f"wp_bckp_{year}-{month}-{day}.sql"
-    return filename
-
-
-def DumpMysql(username, password):
-    filename = CreateFileName()
-    os.system("mysqldump -u " + username + " -p" + password + " wp202203_p6OC > " + filename)
-    return filename
-
-mysqlresult = DumpMysql("admin", "admin")
-print(mysqlresult)
+bckpFolder = DumpMysql("admin", "admin")
+archiveName = creatArchive(bckpFolder)
+print(archiveName)

@@ -1,10 +1,10 @@
 import tarfile
 import os
-from fileName import CreateFileName
+from fileName import fileCreate
 
 
 def creatArchive(foldername):
-    archivename = CreateFileName("bckp_wp","tar.gz")
+    archivename = fileCreate("bckp_wp","tar.gz")
     backup = tarfile.open(archivename, mode='w:gz')
     backup.add(foldername)
     backup.close()

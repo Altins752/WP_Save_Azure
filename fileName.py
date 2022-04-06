@@ -1,12 +1,20 @@
-import time
-import os
+#!/usr/bin/python3
+import os, time, datetime
+from datetime import datetime, timedelta, date
 
-def CreateFileName(prefixe, exten):
-    fileTime = time.localtime(time.time())
 
-    year = fileTime.tm_year
-    month = fileTime.tm_mon
-    day = fileTime.tm_mday
 
-    filename = f"{prefixe}_{year}-{month}-{day}.{exten}"
+def fileCreate(prefixe, exten):
+    comment_date = date.today() - timedelta(days=0)
+    print(comment_date)
+    filename = f"{prefixe}-{comment_date}.{exten}"
     return filename
+
+def fileDelete(prefixe, exten):
+    comment_date = date.today() - timedelta(days=5)
+    print(comment_date)
+    filename = f"{prefixe}-{comment_date}.{exten}"
+    return filename
+
+
+

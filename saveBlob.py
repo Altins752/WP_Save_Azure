@@ -2,36 +2,39 @@ import os, uuid
 from azure.storage.blob import BlobServiceClient, BlobClient, ContainerClient, __version__
 
 try:
-    print("Azure Blob Storage v" + __version__ + " - Python quickstart sample")
+    def importBlob(fileName) :
+        print("Azure Blob Storage v" + __version__ + " - Python quickstart sample")
 
-    # Quick start code goes here
-    connect_str = os.getenv('AZURE_STORAGE_CONNECTION_STRING')
+        # Quick start code goes here
+        connect_str = "DefaultEndpointsProtocol=https;AccountName=bckpwpp6oc;AccountKey=03yTYCeT3lnbyQu/yC5zAwYuMRnUI+TJ6bQPCG1Jvf6iC9PHz6ZvA4POl+8ppVj+eI3CwkpeY+Iu+AStgLaMsQ==;EndpointSuffix=core.windows.net"
 
-    # Create the BlobServiceClient object which will be used to create a container client
-    blob_service_client = BlobServiceClient.from_connection_string(connect_str)
+        # Create the BlobServiceClient object which will be used to create a container client
+        blob_service_client = BlobServiceClient.from_connection_string(connect_str)
+        blob_service_client.max_single_put_file_size = 4 * 1024 * 1024
+        blob_service_client.timeout=180
 
-    # Create a unique name for the container
-    container_name = "bckptest"
+        # Create a unique name for the container
+        container_name = "test"
 
-    # Create a local directory to hold blob data
-    local_path = "./bckp_blob"
+        # Create a local directory to hold blob data
+        local_path = "./bckp_blob"
 
-    local_file_name = "test.txt"
-    upload_file_path = os.path.join(local_path, local_file_name)
-    print(upload_file_path)
+        local_file_name = fileName
+        upload_file_path = os.path.join(local_path, local_file_name)
+        print(upload_file_path)
 
-    # Create a blob client using the local file name as the name for the blob
-    blob_client = blob_service_client.get_blob_client(container=container_name, blob=local_file_name)
+        # Create a blob client using the local file name as the name for the blob
+        blob_client = blob_service_client.get_blob_client(container=container_name, blob=local_file_name)
 
-    print("\nUploading to Azure Storage as blob:\n\t" + local_file_name)
+        print("\nUploading to Azure Storage as blob:\n\t" + local_file_name)
 
-    # Upload the created file
-    blob_client.upload_blob(upload_file_path)
+        # Upload the created file
+        with open(upload_file_path, "rb") as data:
+            blob_client.upload_blob(data, blob_type="BlockBlob", connection_timeout=600)
 
-    
-    print("upload done")
+        
+        print("upload done")
 
 except Exception as ex:
     print('Exception:')
     print(ex)
-    print(data)

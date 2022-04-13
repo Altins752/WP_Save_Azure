@@ -1,5 +1,5 @@
-import tarfile
-import os
+#!/usr/bin/python3
+import tarfile, shutil
 from fileName import fileCreate
 
 
@@ -8,5 +8,5 @@ def creatArchive(foldername):
     backup = tarfile.open(archivename, mode='w:gz')
     backup.add(foldername)
     backup.close()
-    os.system("rm -rf bckp_wp")
+    shutil.rmtree("bckp_wp")
     return archivename

@@ -1,10 +1,10 @@
-import os, uuid
+#!/usr/bin/python3
+import os
 from azure.storage.blob import BlobServiceClient, BlobClient, ContainerClient, __version__
 
 try:
     def importBlob(fileName) :
-        print("Azure Blob Storage v" + __version__ + " - Python quickstart sample")
-
+        print("Azure Blob Storage v" + __version__)
         # Quick start code goes here
         connect_str = "DefaultEndpointsProtocol=https;AccountName=bckpwpp6oc;AccountKey=03yTYCeT3lnbyQu/yC5zAwYuMRnUI+TJ6bQPCG1Jvf6iC9PHz6ZvA4POl+8ppVj+eI3CwkpeY+Iu+AStgLaMsQ==;EndpointSuffix=core.windows.net"
 
@@ -21,19 +21,18 @@ try:
 
         local_file_name = fileName
         upload_file_path = os.path.join(local_path, local_file_name)
-        print(upload_file_path)
 
         # Create a blob client using the local file name as the name for the blob
         blob_client = blob_service_client.get_blob_client(container=container_name, blob=local_file_name)
 
-        print("\nUploading to Azure Storage as blob:\n\t" + local_file_name)
+        print("\nTéléchargement vers Azure Blob de :" + local_file_name)
 
         # Upload the created file
         with open(upload_file_path, "rb") as data:
             blob_client.upload_blob(data, blob_type="BlockBlob", connection_timeout=600)
 
         
-        print("upload done")
+        print("Téléchargement terminé")
 
 except Exception as ex:
     print('Exception:')

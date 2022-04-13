@@ -4,7 +4,7 @@ from dumpBDD import DumpMysql
 from TarFile import creatArchive
 from fileName import fileDelete
 from datetime import datetime, timedelta
-from saveBlob import importBlob
+from saveBlob import importBlob, deletBlob
 
 try:
     shutil.copytree("/var/www/html/", "./bckp_wp/siteWP")
@@ -16,10 +16,13 @@ try:
 
     importBlob(archiveName)
 
+
     oldArchive = fileDelete("bckp_wp","tar.gz")
-    os.remove(f"./bckp_blob/{oldArchive}")
-    print(f"Le fichier {oldArchive} a été suprimé")
-  
+    # os.remove(f"./bckp_blob/{oldArchive}")
+    # print(f"Le fichier {oldArchive} a été suprimé")
+   
+    deletBlob(oldArchive)
+
 except Exception as ex:
     print('Exception:')
     print(ex)

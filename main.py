@@ -19,10 +19,6 @@ try:
     oldArchive = fileDelete("bckp_wp","tar.gz")
     os.remove(f"./bckp_blob/{oldArchive}")
     print(f"Le fichier {oldArchive} a été suprimé")
-
-   
-
-
   
 except Exception as ex:
     print('Exception:')

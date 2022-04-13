@@ -10,29 +10,22 @@ try:
 
         # Create the BlobServiceClient object which will be used to create a container client
         blob_service_client = BlobServiceClient.from_connection_string(connect_str)
-        blob_service_client.max_single_put_file_size = 4 * 1024 * 1024
-        blob_service_client.timeout=180
 
-        # Create a unique name for the container
+        # Définition du container sur Azure et di chemin de téléversement local
         container_name = "test"
-
-        # Create a local directory to hold blob data
-        local_path = "./bckp_blob"
-
-        local_file_name = fileName
-        upload_file_path = os.path.join(local_path, local_file_name)
+        upload_file_path = f"./bckp_blob/{fileName}"
 
         # Create a blob client using the local file name as the name for the blob
-        blob_client = blob_service_client.get_blob_client(container=container_name, blob=local_file_name)
+        blob_client = blob_service_client.get_blob_client(container=container_name, blob=fileName)
 
-        print("\nTéléchargement vers Azure Blob de :" + local_file_name)
+        print("\nTéléversement vers Azure Blob de : " + fileName)
 
-        # Upload the created file
+        # Téléversement des données
         with open(upload_file_path, "rb") as data:
             blob_client.upload_blob(data, blob_type="BlockBlob", connection_timeout=600)
 
         
-        print("Téléchargement terminé")
+        print("Téléversement terminé")
 
 except Exception as ex:
     print('Exception:')

@@ -3,17 +3,13 @@ import os
 from azure.storage.blob import BlobServiceClient, BlobClient, ContainerClient, __version__
 
 
-def importBlob(fileName) :
+def importBlob(fileName, connect_str, container_name) :
     try:
         print("Azure Blob Storage v" + __version__)
-        # Quick start code goes here
-        connect_str = "DefaultEndpointsProtocol=https;AccountName=bckpwpp6oc;AccountKey=03yTYCeT3lnbyQu/yC5zAwYuMRnUI+TJ6bQPCG1Jvf6iC9PHz6ZvA4POl+8ppVj+eI3CwkpeY+Iu+AStgLaMsQ==;EndpointSuffix=core.windows.net"
-
         # Create the BlobServiceClient object which will be used to create a container client
         blob_service_client = BlobServiceClient.from_connection_string(connect_str)
 
-        # Définition du container sur Azure et di chemin de téléversement local
-        container_name = "test"
+        # Définition du chemin de téléversement local
         upload_file_path = f"./bckp_blob/{fileName}"
 
         # Create a blob client using the local file name as the name for the blob
@@ -32,17 +28,15 @@ def importBlob(fileName) :
         print('Exception:')
         print(ex)
 
-def deletBlob(fileName) :
+def deletBlob(fileName, connect_str, container_name) :
     try:
-        connect_str = "DefaultEndpointsProtocol=https;AccountName=bckpwpp6oc;AccountKey=03yTYCeT3lnbyQu/yC5zAwYuMRnUI+TJ6bQPCG1Jvf6iC9PHz6ZvA4POl+8ppVj+eI3CwkpeY+Iu+AStgLaMsQ==;EndpointSuffix=core.windows.net"
-        container_name = "test"
         blob_service_client = BlobServiceClient.from_connection_string(connect_str)
         blob_client = blob_service_client.get_blob_client(container=container_name, blob=fileName)
 
         print("\nSupression du Blob : " + fileName)
         blob_client.delete_blob()
         print("Supression terminée")
-        
+
     except Exception as ex:
         print('Exception:')
         print(ex)

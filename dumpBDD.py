@@ -2,9 +2,8 @@
 import os
 from fileName import fileCreate
 
-def DumpMysql(username, password):
+def DumpMysql(username, password, bddname, foldername):
     filename = fileCreate("wp_bdd_bckp", "sql")
-    foldername = "./bckp_wp"
     filename = f"{foldername}/{filename}"
-    os.system(f"mysqldump -u {username} -p{password} wp202203_p6OC > {filename}")
+    os.system(f"mysqldump -u {username} -p{password} {bddname} > {filename}")
     return foldername

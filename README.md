@@ -12,3 +12,5 @@ Récupérer la phrase de connexion au compte de stockage Azure
 Récupérer le nom du containers Azure où seront stocker nos sauvegardes
 
 Renseigner les identifiants de la base de donnée et son nom
+
+Rensigner le dossier de sauvegarde local

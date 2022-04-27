@@ -1,0 +1,13 @@
+[BDD]
+bddid: 
+bddmdp: 
+bddname: 
+
+[AZURE]
+connect_string: 
+container_name: 
+
+[FILES]
+folder_path: 
+local_Backup: 
+day_retention: 

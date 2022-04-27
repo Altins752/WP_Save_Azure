@@ -1,5 +1,4 @@
 # Save_Blob_Azure_Script
----
 
 Script permettant la sauvegarde journalière (manuelle/automatique) de fichiers et d'une base de donnée local et l'important ensuite dans un Blob Azure.
 

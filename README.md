@@ -11,6 +11,7 @@ Script permettant la sauvegarde journalière (manuelle/automatique) de fichiers 
 * Installer la bibliothèque Azure pour python :
 
         pip install Azure
+        configparser
 
 
 ## Utiliser Save_Blob_Azure_Script
@@ -19,7 +20,7 @@ Script permettant la sauvegarde journalière (manuelle/automatique) de fichiers 
 2. Attribuer les droits necessaire aux scripts python
 3. [Compléter](#Description_config) le fichier de configuration ```config_sample``` et renommer le en ```config```
 4. pour executer le script manuellement il vous suffis d'effectuer cette commande dans le répertoire où vous avez télécharger les fichiers: ```python3 main.py```
-5. Pour que le script s'effectue tous les jours automatiquement, il faut créer une entrée cron executant une fois par jours la commande ```python3 \< *chemin absolue vers le repertoire des scripts* \>/main.py`` 
+5. Pour que le script s'effectue tous les jours automatiquement, il faut créer une entrée cron executant une fois par jours la commande ```python3 <chemin absolue vers le repertoire des scripts>/main.py``` 
 
 ## Description du fichier de configuration<a name="Description_Config"></a>
 

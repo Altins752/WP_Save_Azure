@@ -38,10 +38,13 @@ def deletBlob(fileName, connect_str, container_name) :
         # créez un client blob en utilisant le nom du fichier local comme nom du blob
         blob_client = blob_service_client.get_blob_client(container=container_name, blob=fileName)
 
-        # supression de l'archive sur Azure Blob
-        print("\nSupression du Blob : " + fileName)
-        blob_client.delete_blob()
-        print("Supression terminée")
+        try:
+            # supression de l'archive sur Azure Blob
+            print("\nSupression du Blob : " + fileName)
+            blob_client.delete_blob()
+            print("Supression terminée")
+        except Exception as ex:
+            print('Le blob n\'existe pas')
 
     except Exception as ex:
         print('Exception:')

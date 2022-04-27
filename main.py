@@ -19,6 +19,10 @@ ctnr_name = config.get('AZURE', 'container_name')
 
 folder_path_bckp = config.get('FILES', 'folder_path')
 folder_path_local_bckp = config.get('FILES', 'local_Backup')
+jrs = config.get('FILES', 'day_retention')
+
+#conversion de la variable jrs en int
+jrs = int(jrs)
 
 # appels des différentes fonction pour effectuer la sauvegarde
 try:
@@ -35,7 +39,7 @@ try:
     importBlob(archiveName, folder_path_local_bckp, cnct_str, ctnr_name)
 
     # supression de l'archive d'il y as 5 jours dans le containers Blob
-    oldArchive = fileDelete("bckp_wp","tar.gz")
+    oldArchive = fileDelete("bckp","tar.gz", jrs)
     deletBlob(oldArchive, cnct_str, ctnr_name)
 
 except Exception as ex:

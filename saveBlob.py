@@ -29,7 +29,7 @@ def importBlob(fileName, local_bckp, connect_str, container_name) :
         print(ex)
 
 
-# fonction pour la supression de l'archive d'il y a 5 jours sur Azure blob
+# fonction pour la supression de l'archive sur Azure blob suivant le nombre de jours configuré
 def deletBlob(fileName, connect_str, container_name) :
     try:
         # création de l'objet BlobServiceClient utilisé pour interragir avec les containers Azure

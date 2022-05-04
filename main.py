@@ -38,7 +38,7 @@ try:
     #imports de l'archive vers le container Azure
     importBlob(archiveName, folder_path_local_bckp, cnct_str, ctnr_name)
 
-    # supression de l'archive d'il y as 5 jours dans le containers Blob
+    # supression de l'archive dans le containers Blob suivant le nombre de jours configuré
     oldArchive = fileDelete("bckp","tar.gz", jrs)
     deletBlob(oldArchive, cnct_str, ctnr_name)
 

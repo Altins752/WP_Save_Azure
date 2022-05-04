@@ -8,7 +8,7 @@ def fileCreate(prefixe, exten):
     filename = f"{prefixe}-{comment_date}.{exten}"
     return filename
 
-# fonction pour créer des noms de fichiers avec la date d'il y a 5 jours
+# fonction pour créer des noms de fichiers avec le nombre de jours configurer en rétention (utile pour supprimer les anciens fichiers)
 def fileDelete(prefixe, exten, jrs):
     comment_date = date.today() - timedelta(days=jrs)
     filename = f"{prefixe}-{comment_date}.{exten}"

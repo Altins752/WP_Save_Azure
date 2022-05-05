@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-import os, datetime, shutil, configparser, syslog, logging
+import os, datetime, shutil, configparser, syslog, logging, sys
 import logging.config
 from pprint import pprint
 from dumpBDD import DumpMysql
@@ -41,6 +41,7 @@ try:
     if not os.path.exists(folder_path_local_bckp):
         myLog.error("Le dossier de sauvegarde local n'existe pas ou est inaccessible")
         myLog.info("arrêt du script")
+        sys.exit(2)
         exit()
 
     # création de l'archive à sauvegarder
@@ -70,22 +71,27 @@ try:
 # Gestion de l'erreur en cas d'ancien blob non existant mais non bloquant pour la finalisation du Script
     if error == 1 :
         myLog.warning("Ancien blob non suprimé car inexistant - le script est quand même aller au bout")
+        sys.exit(1)
     else:   
         myLog.info("Tout s'est bien passé")
+        sys.exit(0)
 
 # exception pour gérer les erreurs
 except FileNotFoundError as ex:
     myLog.error("Le chemin des fichier a sauvegarder est inconnue ou inaccessible")
     myLog.info("arrêt du script")
+    sys.exit(2)
     exit()
 
 except ValueError as ex:
-    myLog.error("La valeur de la variable jrs doit être un nombre entier (uniquement des caractères alphanumérique sans décimaux)")
+    myLog.error('La valeur de la variable "jrs" doit être un nombre entier (uniquement des caractères alphanumérique sans décimaux)')
     myLog.info("arrêt du script")
+    sys.exit(2)
     exit()
 
 except Exception as ex:
     myLog.error("Une erreur inconnue est survenue")
     myLog.debug(ex)
     myLog.info("arrêt du script")
+    sys.exit(2)
     exit()

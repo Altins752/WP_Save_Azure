@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-import os, shutil, logging
+import os, shutil, logging, sys
 import logging.config
 from fileName import fileCreate
 
@@ -22,4 +22,5 @@ def DumpMysql(username, password, bddname, foldername):
         myLog.error("Erreur lors du dump. Vérifiez les paramètres de connexion et si la base de donnée est bien accessible")
         myLog.info("arrêt du script")
         shutil.rmtree("./bckp_wp_temp")
+        sys.exit(2)
         exit()

@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-import os, logging
+import os, logging, sys
 import logging.config
 from azure.storage.blob import BlobServiceClient, BlobClient, ContainerClient, __version__
 
@@ -34,25 +34,27 @@ def importBlob(fileName, local_bckp, connect_str, container_name) :
         if ex.exc_type == "NewConnectionError" :
             myLog.error("connexion impossible")
             myLog.info("arrêt du script")
+            sys.exit(2)
             exit()
-            sys.exit(1)
 
         elif ex.error_code == "BlobAlreadyExists" :
             myLog.error(f'Le blob {fileName} existe déjà dans votre conteneur {container_name}')
             myLog.info("arrêt du script")
+            sys.exit(2)
             exit()
-            # sys.exit(2)
+
         elif ex.error_code == "ContainerNotFound" :
             myLog.error(f'Le conteneur {container_name} n\'existe pas sur Azure Blob')
             myLog.info("arrêt du script")
+            sys.exit(2)
             exit()
-            # sys.exit(3)
+
         else:
             print(ex.error_code)
             myLog.error("Erreur inconnue")
             myLog.info("arrêt du script")
+            sys.exit(2)
             exit()
-            # sys.exit(99)
             
         
 
@@ -75,27 +77,26 @@ def deletBlob(fileName, connect_str, container_name) :
         if ex.exc_type == "NewConnectionError" :
             myLog.error("connexion impossible")
             myLog.info("arrêt du script")
+            sys.exit(2)
             exit()
-            # sys.exit(1)
             
         elif ex.error_code == "BlobNotFound" :
             myLog.warning(f'Le blob {fileName} ne peut pas être supprimé car il n\'existe pas dans votre conteneur {container_name} sur Azure Blob')
             error = 1
             return error
-            # sys.exit(2)
 
         elif ex.error_code == "ContainerNotFound" :
             myLog.error(f'Le conteneur {container_name} n\'existe pas sur Azure Blob')
             myLog.info("arrêt du script")
+            sys.exit(2)
             exit()
-            # sys.exit(3)
 
         else :
             print(ex.error_code)
             myLog.error("Erreur inconnue")
             myLog.info("arrêt du script")
-            exit()
-            # sys.exit(99)   
+            sys.exit(2)
+            exit()  
 
     
         

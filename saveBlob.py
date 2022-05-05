@@ -1,13 +1,16 @@
 #!/usr/bin/python3
-import os, syslog
+import os, logging
+import logging.config
 from azure.storage.blob import BlobServiceClient, BlobClient, ContainerClient, __version__
+
+# Configuration logging
+logging.config.fileConfig('logging.conf')
+
+myLog = logging.getLogger('SaveBlobAzureScript')
 
 # fonction pour l'import de l'archive sur Azure blob
 def importBlob(fileName, local_bckp, connect_str, container_name) :
     try:
-        
-        syslog.syslog("Coucou!")
-
         # création de l'objet BlobServiceClient utilisé pour interragir avec les containers Azure
         blob_service_client = BlobServiceClient.from_connection_string(connect_str)
 
@@ -21,30 +24,33 @@ def importBlob(fileName, local_bckp, connect_str, container_name) :
 
         # téléversement des données
         with open(upload_file_path, "rb") as data:
-            blob_client.upload_blob(data, blob_type="BlockBlob", connection_timeout=600)
+            blob_client.upload_blob(data, blob_type="BlockBlob", connection_timeout=60)
 
 
         print("Téléversement terminé")
 
+# exception pour gérer les erreurs
     except Exception as ex:
         if ex.exc_type == "NewConnectionError" :
-            syslog.syslog("connexion impossible")
+            myLog.error("connexion impossible")
+            myLog.info("arrêt du script")
+            exit()
             sys.exit(1)
 
         elif ex.error_code == "BlobAlreadyExists" :
-            syslog.syslog(f'Le blob {fileName} existe déjà dans votre conteneur {container_name}')
-            syslog.syslog("arrêt du script")
+            myLog.error(f'Le blob {fileName} existe déjà dans votre conteneur {container_name}')
+            myLog.info("arrêt du script")
             exit()
             # sys.exit(2)
         elif ex.error_code == "ContainerNotFound" :
-            syslog.syslog(f'Le conteneur {container_name} n\'existe pas sur Azure Blob')
-            syslog.syslog("arrêt du script")
+            myLog.error(f'Le conteneur {container_name} n\'existe pas sur Azure Blob')
+            myLog.info("arrêt du script")
             exit()
             # sys.exit(3)
         else:
             print(ex.error_code)
-            syslog.syslog("Erreur inconnue")
-            syslog.syslog("arrêt du script")
+            myLog.error("Erreur inconnue")
+            myLog.info("arrêt du script")
             exit()
             # sys.exit(99)
             
@@ -64,28 +70,30 @@ def deletBlob(fileName, connect_str, container_name) :
         blob_client.delete_blob()
         print("Supression terminée")
 
+# exception pour gérer les erreurs
     except Exception as ex:
         if ex.exc_type == "NewConnectionError" :
-            syslog.syslog("connexion impossible")
-            syslog.syslog("arrêt du script")
+            myLog.error("connexion impossible")
+            myLog.info("arrêt du script")
             exit()
             # sys.exit(1)
             
         elif ex.error_code == "BlobNotFound" :
-            syslog.syslog(f'Le blob {fileName} ne peut pas être supprimé car il n\'existe pas dans votre conteneur {container_name} sur Azure Blob')
+            myLog.warning(f'Le blob {fileName} ne peut pas être supprimé car il n\'existe pas dans votre conteneur {container_name} sur Azure Blob')
             error = 1
             return error
             # sys.exit(2)
 
         elif ex.error_code == "ContainerNotFound" :
-            syslog.syslog(f'Le conteneur {container_name} n\'existe pas sur Azure Blob')
+            myLog.error(f'Le conteneur {container_name} n\'existe pas sur Azure Blob')
+            myLog.info("arrêt du script")
             exit()
             # sys.exit(3)
-            
+
         else :
             print(ex.error_code)
-            syslog.syslog("Erreur inconnue")
-            syslog.syslog("arrêt du script")
+            myLog.error("Erreur inconnue")
+            myLog.info("arrêt du script")
             exit()
             # sys.exit(99)   
 

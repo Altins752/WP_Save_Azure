@@ -3,3 +3,4 @@ __pycache__/
 bckp_blob/
 .vscode/ 
 config
+*.log

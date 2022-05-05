@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-import os, datetime, shutil, configparser
+import os, datetime, shutil, configparser, syslog
 from dumpBDD import DumpMysql
 from TarFile import creatArchive
 from fileName import fileDelete
@@ -40,7 +40,12 @@ try:
 
     # supression de l'archive dans le containers Blob suivant le nombre de jours configuré
     oldArchive = fileDelete("bckp","tar.gz", jrs)
-    deletBlob(oldArchive, cnct_str, ctnr_name)
+    error=deletBlob(oldArchive, cnct_str, ctnr_name)
+
+    if error == 1 :
+        syslog.syslog("Ancien blob non suprimé car inexistant - le script est quand même aller au bout")
+    else:   
+        syslog.syslog("Tout s'est bien déroulé")
 
 except Exception as ex:
     print('Exception:')

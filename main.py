@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 import os, datetime, shutil, configparser, syslog
+from pprint import pprint
 from dumpBDD import DumpMysql
 from TarFile import creatArchive
 from fileName import fileDelete
@@ -21,11 +22,11 @@ folder_path_bckp = config.get('FILES', 'folder_path')
 folder_path_local_bckp = config.get('FILES', 'local_Backup')
 jrs = config.get('FILES', 'day_retention')
 
-#conversion de la variable jrs en int
-jrs = int(jrs)
-
 # appels des différentes fonction pour effectuer la sauvegarde
 try:
+    #conversion de la variable jrs en int
+    jrs = int(jrs)
+
     # création de l'archive à sauvegarder
     shutil.copytree(folder_path_bckp, "./bckp_wp_temp/siteWP")
 
@@ -47,6 +48,20 @@ try:
     else:   
         syslog.syslog("Tout s'est bien déroulé")
 
+except FileNotFoundError as ex:
+    print('Exception:')
+    print('Le chemin des fichier a sauvegarder est inconnue ou inaccessible')
+    exit()
+
+except ValueError as ex:
+    print('Exception:')
+    syslog.syslog('La valeur de la variable "jrs" doit ête un nombre entier (uniquement des caractères alphanumérique sans décimaux)')
+    syslog.syslog('arrêt du script')
+    exit()
+
 except Exception as ex:
     print('Exception:')
-    print(ex)
+    print(ex.error_code)
+    syslog.syslog("Erreur inconnue")
+    syslog.syslog("arrêt du script")
+    exit()

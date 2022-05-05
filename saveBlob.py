@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 import os, syslog
-from pprint import pprint
 from azure.storage.blob import BlobServiceClient, BlobClient, ContainerClient, __version__
 
 # fonction pour l'import de l'archive sur Azure blob
@@ -37,6 +36,11 @@ def importBlob(fileName, local_bckp, connect_str, container_name) :
             syslog.syslog("arrêt du script")
             exit()
             # sys.exit(2)
+        elif ex.error_code == "ContainerNotFound" :
+            syslog.syslog(f'Le conteneur {container_name} n\'existe pas sur Azure Blob')
+            syslog.syslog("arrêt du script")
+            exit()
+            # sys.exit(3)
         else:
             print(ex.error_code)
             syslog.syslog("Erreur inconnue")
@@ -72,6 +76,12 @@ def deletBlob(fileName, connect_str, container_name) :
             error = 1
             return error
             # sys.exit(2)
+
+        elif ex.error_code == "ContainerNotFound" :
+            syslog.syslog(f'Le conteneur {container_name} n\'existe pas sur Azure Blob')
+            exit()
+            # sys.exit(3)
+            
         else :
             print(ex.error_code)
             syslog.syslog("Erreur inconnue")

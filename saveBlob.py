@@ -1,3 +1,14 @@
+#########################################################################################################
+# Nom du script :       Save_Blob_Azure_Script.py                                                       #
+# Auteur :              Mathieu Fabri                                                                   #
+# Date de création :    2020-04                                                                         #
+# Version :             1.0                                                                             #
+# Langage :             Python                                                                          #
+# Description :         Script pour sauvegarder les fichiers sur Azure Blob                             #
+# License :             GPL3 - https://github.com/Altins752/Save_Blob_Azure_Script/blob/main/LICENSE    #
+# GitHub :              https://github.com/Altins752/Save_Blob_Azure_Script                             #
+#########################################################################################################
+
 #!/usr/bin/python3
 import os, logging, sys
 import logging.config

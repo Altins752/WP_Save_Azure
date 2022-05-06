@@ -25,7 +25,7 @@ Script permettant la sauvegarde journalière (manuelle/automatique) de fichiers 
 |:---------------|:----------------------------------------------:|
 | 0              |     Le script s'est terminer sans erreurs      |
 | 1              | Le script s'est terminer mais avec des erreurs |
-| 2              | Le script a étais interrompue par une erreur   |
+| 2              |   Le script a été interrompue par une erreur   |
 
 ## Logs
 

@@ -12,6 +12,8 @@
 * Commenter votre code le plus précisément possible. 
     * Langue : Anglais ou Français
 
+* Générer des logs durant l'execution de votre code:
+  * Ils devront apparaître dans le fichier "SaveBlobAzureScript.log"
 
 ## Suggérer des modifications
 Pour suggérer une modification ou poser des questions sur le projet, utiliser l’onglet « Issues »

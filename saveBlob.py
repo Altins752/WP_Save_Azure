@@ -46,27 +46,23 @@ def importBlob(fileName, local_bckp, connect_str, container_name) :
             myLog.error("connexion impossible")
             myLog.info("arrêt du script")
             sys.exit(2)
-            exit()
 
         elif ex.error_code == "BlobAlreadyExists" :
             myLog.error(f'Le blob {fileName} existe déjà dans votre conteneur {container_name}')
             myLog.info("arrêt du script")
             sys.exit(2)
-            exit()
 
         elif ex.error_code == "ContainerNotFound" :
             myLog.error(f'Le conteneur {container_name} n\'existe pas sur Azure Blob')
             myLog.info("arrêt du script")
             sys.exit(2)
-            exit()
 
         else:
             print(ex.error_code)
             myLog.error("Erreur inconnue")
             myLog.info("arrêt du script")
             sys.exit(2)
-            exit()
-            
+
         
 
 # fonction pour la supression de l'archive sur Azure blob suivant le nombre de jours configuré
@@ -89,8 +85,7 @@ def deletBlob(fileName, connect_str, container_name) :
             myLog.error("connexion impossible")
             myLog.info("arrêt du script")
             sys.exit(2)
-            exit()
-            
+
         elif ex.error_code == "BlobNotFound" :
             myLog.warning(f'Le blob {fileName} ne peut pas être supprimé car il n\'existe pas dans votre conteneur {container_name} sur Azure Blob')
             error = 1
@@ -100,14 +95,12 @@ def deletBlob(fileName, connect_str, container_name) :
             myLog.error(f'Le conteneur {container_name} n\'existe pas sur Azure Blob')
             myLog.info("arrêt du script")
             sys.exit(2)
-            exit()
 
         else :
             print(ex.error_code)
             myLog.error("Erreur inconnue")
             myLog.info("arrêt du script")
             sys.exit(2)
-            exit()  
 
     
         

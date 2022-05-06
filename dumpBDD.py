@@ -34,4 +34,3 @@ def DumpMysql(username, password, bddname, foldername):
         myLog.info("arrêt du script")
         shutil.rmtree("./bckp_wp_temp")
         sys.exit(2)
-        exit()

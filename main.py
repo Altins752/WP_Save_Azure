@@ -53,7 +53,6 @@ try:
         myLog.error("Le dossier de sauvegarde local n'existe pas ou est inaccessible")
         myLog.info("arrêt du script")
         sys.exit(2)
-        exit()
 
     # création de l'archive à sauvegarder
     myLog.info("Création de l'archive à sauvegarder")
@@ -92,17 +91,14 @@ except FileNotFoundError as ex:
     myLog.error("Le chemin des fichier a sauvegarder est inconnue ou inaccessible")
     myLog.info("arrêt du script")
     sys.exit(2)
-    exit()
 
 except ValueError as ex:
     myLog.error('La valeur de la variable "jrs" doit être un nombre entier (uniquement des caractères alphanumérique sans décimaux)')
     myLog.info("arrêt du script")
     sys.exit(2)
-    exit()
 
 except Exception as ex:
     myLog.error("Une erreur inconnue est survenue")
     myLog.debug(ex)
     myLog.info("arrêt du script")
     sys.exit(2)
-    exit()

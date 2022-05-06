@@ -18,6 +18,20 @@ Script permettant la sauvegarde journalière (manuelle/automatique) de fichiers 
 5. Pour executer le script manuellement il vous suffis d'effectuer cette commande dans le répertoire où vous avez télécharger les fichiers: ```python3 main.py```
 6. Pour que le script s'effectue tous les jours automatiquement, il faut créer une entrée cron executant une fois par jours la commande ```python3 <chemin absolue vers le repertoire des scripts>/main.py``` 
 
+
+## code de sortie
+
+| Code de sortie |                 Signification                  |
+|:---------------|:----------------------------------------------:|
+| 0              |     Le script s'est terminer sans erreurs      |
+| 1              | Le script s'est terminer mais avec des erreurs |
+| 2              | Le script a étais interrompue par une erreur   |
+
+## Logs
+
+Le fichier de logs et généré au premier lancement du programme. Il se nomme "SaveBlobAzureScript.log" et est stocké dans le répertoire du script.
+
+
 ## Description du fichier de configuration<a name="Description_Config"></a>
 
 ### BDD

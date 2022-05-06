@@ -24,6 +24,14 @@
           <option name="caretOffset" value="0" />
           <option name="fileUrl" value="file://$PROJECT_DIR$/TarFile.py" />
         </OpenedFileInfo>
+        <OpenedFileInfo>
+          <option name="caretOffset" value="13" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/config.sample" />
+        </OpenedFileInfo>
+        <OpenedFileInfo>
+          <option name="caretOffset" value="0" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/README.md" />
+        </OpenedFileInfo>
       </list>
     </option>
   </component>
